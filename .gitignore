@@ -1,3 +1,4 @@
 /docker/postgres
-.idea
-.git
+/.idea
+/.git
+/.env
