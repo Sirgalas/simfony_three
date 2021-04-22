@@ -1,0 +1,9 @@
+{% extends "admin/base.html.twig" %}
+{% block title %}Редактирование пользователя {{ user.email }}{% endblock %}
+{% block body %}
+    <h1 class="text-center">Редактирование пользователя {{ user.email }}</h1>
+
+    {{ include('admin/user/_form.html.twig', {'button_label': 'Update'}) }}
+
+    {{ include('admin/user/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Пользователь {{ user.email }}{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">User</h1>
+    <div class="col-12 mb-5 text-right">
+        <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-primary">edit</a>
+        {{ include('admin/user/_delete_form.html.twig') }}
+    </div>
+
+    <table class="table table-striped shadow-lg bg-white rounded ">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+{% endblock %}
