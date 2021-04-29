@@ -37,6 +37,12 @@ connect_db: # database command line
 connect_test_db: # database command line
 	@docker-compose -f ${DOCKER_CONFIG} exec test-db bash
 
+connect_node_watch: # database command line
+	@docker-compose -f ${DOCKER_CONFIG} exec node-watch bash
+
+connect_node: # database command line
+	@docker-compose -f ${DOCKER_CONFIG} exec node bash
+
 init: # laravel install
 	@docker-compose -f ${DOCKER_CONFIG} exec -u www -w /www/app php-fpm composer create-project symfony/website-skeleton .
 
@@ -48,6 +54,9 @@ add_controller:
 
 add_entity:
 	@docker-compose -f ${DOCKER_CONFIG} exec -u www -w /www/app php-fpm bin/console make:entity
+
+add_form:
+	@docker-compose -f ${DOCKER_CONFIG} exec -u www -w /www/app php-fpm bin/console make:form
 
 add_crud:
 	@docker-compose -f ${DOCKER_CONFIG} exec -u www -w /www/app php-fpm bin/console make:crud $(name)

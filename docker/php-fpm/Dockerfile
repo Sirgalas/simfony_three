@@ -21,6 +21,10 @@ FROM php:7.4.16-fpm-alpine
 #
 #   xdebug - required for developers
 #
+RUN apk add --update --no-cache icu-dev
+RUN docker-php-ext-configure intl \
+    && docker-php-ext-install intl
+
 RUN set -xe \
 		&& apk add --no-cache \
 			libpng \

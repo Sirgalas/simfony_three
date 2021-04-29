@@ -6,15 +6,16 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
  */
 class Post
 {
-    private const PUBLISHED=1;
-    private const DRAFT=0;
-
+    public const PUBLISHED=1;
+    public const DRAFT=0;
 
     /**
      * @ORM\Id
@@ -63,9 +64,21 @@ class Post
      */
     private $is_published;
 
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="posts")
+     */
+    private $category;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(type="string", length=1000)
+     */
+    private $slug;
+
+    public function __construct(){
+        $this->setNewUpdateAt();
+        $this->setNewCreateAt();
+        $this->setIsDraft();
     }
 
     public function getId(): ?int
@@ -143,17 +156,19 @@ class Post
         return $this;
     }
 
+
     public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(?UserInterface $author): self
     {
         $this->author = $author;
 
         return $this;
     }
+
 
     /**
      * @return Collection|Comment[]
@@ -199,4 +214,22 @@ class Post
     {
         $this->is_published=self::DRAFT;
     }
+
+    public function getCategory(): ?category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
 }

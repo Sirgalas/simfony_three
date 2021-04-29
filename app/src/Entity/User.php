@@ -44,6 +44,21 @@ class User implements UserInterface
      */
     private $posts;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $family;
+
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $surename;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -174,5 +189,46 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFamily(): ?string
+    {
+        return $this->family;
+    }
+
+    public function setFamily(?string $family): self
+    {
+        $this->family = $family;
+
+        return $this;
+    }
+
+    public function getSurename(): ?string
+    {
+        return $this->surename;
+    }
+
+    public function setSurename(?string $surename): self
+    {
+        $this->surename = $surename;
+
+        return $this;
+    }
+
+    public function getFullName():?string
+    {
+        return $this->name.' '.$this->surename.' '.$this->family.'.';
     }
 }

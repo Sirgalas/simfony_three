@@ -43,6 +43,23 @@ services:
     networks:
       - three
 
+  node-watch:
+    image: node:12.7-alpine
+    volumes:
+      - "./:/app"
+    working_dir: "/app"
+    command: sh -c "until [ -f .ready ] ; do sleep 1 ; done && npm run watch"
+    networks:
+      - three
+
+  node:
+      image: node:12.7-alpine
+      volumes:
+        - "./:/app"
+      working_dir: "/app"
+      networks:
+        - three
+
   mailhog:
     image: mailhog/mailhog:latest
     ports:

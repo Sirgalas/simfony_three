@@ -1,0 +1,49 @@
+{% extends "admin/base.html.twig" %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block alert %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block body %}
+    <h1 class="text-center">{{ title }}</h1>
+    <div class="col-12 mb-5 text-right">
+        <a href="{{ path('admin_category_new') }}" class="btn btn-success btn-lg">Создать новую</a>
+    </div>
+    <div class="col-12">
+        <table class="table table-striped shadow-lg bg-white rounded table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Название</th>
+                    <th>Опубликованность</th>
+                    <th>действия</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.title }}</td>
+                    <td>{{ category.isPublished ? 'Yes' : 'No' }}</td>
+                    <td>
+                        <a href="{{ path('admin_category_show', {'id': category.id}) }}"><i class="fas fa-glasses"></i></a>
+                        <a href="{{ path('admin_category_edit', {'id': category.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

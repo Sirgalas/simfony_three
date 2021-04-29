@@ -17,20 +17,39 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => "Введите email"
+                'label' => "Введите email",
+                'attr'=>[
+                    'class'=>'form-control'
+                ]
             ])
             ->add('confirmPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Пароль'
+                    'label' => 'Пароль',
+                    'attr'=>[
+                        'class'=>'form-control required'
+                    ]
                 ],
                 'second_options' => [
-                    'label' => 'Повтор пароля'
+                    'label' => 'Повтор пароля',
+                    'attr'=>[
+                        'class'=>'form-control'
+                    ]
                 ],
+
             ])
-        ->add('save',SubmitType::class,[
-            'label'=>'Сохранить'
-        ]);
+            ->add('save',SubmitType::class,[
+                'label'=>'Сохранить',
+                'attr'=>[
+                    'class'=>'btn btn-success col-2'
+                ]
+            ])
+            ->add('delete',SubmitType::class,[
+                'label'=>'Удалить',
+                'attr'=>[
+                    'class'=>'btn btn-danger col-2'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
